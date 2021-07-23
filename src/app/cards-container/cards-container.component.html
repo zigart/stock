@@ -1,0 +1,13 @@
+<div class="container">
+    <h1>{{title}}</h1>
+    <form>
+        <input type="text" name="title" [(ngModel)]= "titleInput" placeholder="Titulo de tarjeta nueva">
+        <input type="text" name="description" [(ngModel)]= "descriptionInput" placeholder="descripcion de tarjeta nueva">
+        <input type="number" name="counter" [(ngModel)]="counterInput">
+        <button class="addCard" (click)="addCard()">+</button>
+    </form>
+    <div class="cardsAndAdd">
+        <app-cards id="cards"></app-cards>
+    </div>
+    
+</div>

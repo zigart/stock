@@ -1,0 +1,52 @@
+
+    .card{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 300px;
+        height: 350px;
+        box-shadow: 0px 2px 10px black;
+        background-color: rgb(255, 255, 255);
+        margin: 0 30px 50px 30px;
+        border-radius: 20px;
+        img{
+            border-radius: 100%;
+            width: 100px;
+            height: 100px;
+        }
+        h3{
+            font-family: Arial, Helvetica, sans-serif;
+            
+        }
+        .description{
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .counter{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 30px;
+        }
+
+        .buttons{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            width: 100%;
+            .addCounter{
+                border-radius: 100%;
+                width: 40px;
+                height: 40px;
+                background-color: #5eb4ff;
+                
+            }
+            .substractCounter{
+                border-radius: 100%;
+                width: 40px;
+                height: 40px;
+                background-color: #c4dff6;
+            }
+        }
+    }
+
+    
