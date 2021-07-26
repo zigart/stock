@@ -31,6 +31,10 @@ export class CardsComponent implements OnInit {
     substract -= 1;
     this.cardService.updateCounter(substract, element);
   }
+
+  deleteCard(event:Event){
+    this.cardService.deleteCard(event);
+  }
 }
 
 //this.cardService.deleteCard(evento);
