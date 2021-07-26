@@ -5,8 +5,9 @@ import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
 import { CardsComponent } from './cards/cards.component';
 import { CardsContainerComponent } from './cards-container/cards-container.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { cardService } from './cards/card.service';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { cardService } from './cards/card.service';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [cardService],
   bootstrap: [AppComponent]
