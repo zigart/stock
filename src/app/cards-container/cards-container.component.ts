@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { card } from '../cards/card.model';
-import { cardService } from '../cards/card.service';
+import { CardsComponent } from '../cards/cards.component';
+import { connectionBackend } from '../services/connection.service';
 
 
 @Component({
@@ -9,23 +10,36 @@ import { cardService } from '../cards/card.service';
   templateUrl: './cards-container.component.html',
   styleUrls: ['./cards-container.component.scss']
 })
-export class CardsContainerComponent implements OnInit {
+
+export class CardsContainerComponent implements OnInit, AfterViewInit {
   title = "STOCK"
+  @ViewChild('cards') cards!:CardsComponent;
   
-  public card:card[] = [];
-  public titleInput!:string;
-  public descriptionInput!:string;
-  public counterInput!:number;
-  constructor(public cardService:cardService) { 
+  public card:card;
+
+  constructor(public connectionBackend:connectionBackend) { 
+    this.card = new card('', '', '', 0);
   }
 
   ngOnInit(): void {
-    this.card = this.cardService.cards;
+  }
+
+  ngAfterViewInit(){
+    
   }
   
+
   addCard(f:NgForm){
-      this.card.push(new card('', this.titleInput, this.descriptionInput, this.counterInput));
-      f.reset()
+    console.log(this.card);
+    this.connectionBackend.addCard(this.card).subscribe(
+      response =>{
+        console.log(response);
+        f.reset();
+      }, error =>{
+        console.log(error);
+      }
+    );
+    this.cards.getCards();
   }
 
   

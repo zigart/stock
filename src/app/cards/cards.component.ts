@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { connectionBackend } from '../services/connection.service';
 import { card } from './card.model';
 import { cardService } from './card.service';
 
@@ -9,15 +10,26 @@ import { cardService } from './card.service';
 })
 export class CardsComponent implements OnInit {
 
-  public cardInfo:card[] = [];
+  public card:card[] = [];
 
-  constructor(public cardService:cardService) {
-  }
+  constructor(private cardService:cardService, private connectionBackend:connectionBackend) {}
   
   ngOnInit(): void {
-    this.cardInfo = this.cardService.cards;
+    this.getCards();
   }
 
+  getCards(){
+    this.connectionBackend.getCards().subscribe(
+      response =>{
+        this.card = response.card;
+        console.log(this.card)
+      }, error =>{
+        console.log(error);
+      }
+    )
+  }
+
+  //ingresoar al array del id especificado y acceder al counter de ese elemento
 
   addCounter(counter:number, element:any){
     let add = counter;
@@ -25,6 +37,7 @@ export class CardsComponent implements OnInit {
     this.cardService.updateCounter(add, element)
 
   }
+
 
   substractCounter(counter:number, element:any){
     let substract = counter;
@@ -36,5 +49,3 @@ export class CardsComponent implements OnInit {
     this.cardService.deleteCard(event);
   }
 }
-
-//this.cardService.deleteCard(evento);
