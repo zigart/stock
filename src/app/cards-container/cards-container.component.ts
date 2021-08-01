@@ -12,13 +12,14 @@ import { connectionBackend } from '../services/connection.service';
 })
 
 export class CardsContainerComponent implements OnInit, AfterViewInit {
-  title = "STOCK"
+  title = "STOCK";
+
   @ViewChild('cards') cards!:CardsComponent;
   
   public card:card;
 
   constructor(public connectionBackend:connectionBackend) { 
-    this.card = new card('', '', '', 0);
+    this.card = new card('', '', '', 0, "");
   }
 
   ngOnInit(): void {
@@ -28,10 +29,9 @@ export class CardsContainerComponent implements OnInit, AfterViewInit {
     
   }
   
-
   addCard(f:NgForm){
     console.log(this.card);
-    this.connectionBackend.addCard(this.card).subscribe(
+     this.connectionBackend.addCard(this.card).subscribe(
       response =>{
         console.log(response);
         f.reset();
@@ -40,8 +40,6 @@ export class CardsContainerComponent implements OnInit, AfterViewInit {
       }
     );
     this.cards.getCards();
+
   }
-
-  
-
 }

@@ -1,51 +1,81 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { connectionBackend } from '../services/connection.service';
 import { card } from './card.model';
-import { cardService } from './card.service';
 
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
-  styleUrls: ['./cards.component.scss']
+  styleUrls: ['./cards.component.scss'],
 })
 export class CardsComponent implements OnInit {
+  public card: card[] = [];
 
-  public card:card[] = [];
+  constructor(private _connectionBackend: connectionBackend) {}
 
-  constructor(private cardService:cardService, private connectionBackend:connectionBackend) {}
-  
   ngOnInit(): void {
     this.getCards();
   }
 
-  getCards(){
-    this.connectionBackend.getCards().subscribe(
-      response =>{
+  getCards() {
+    this._connectionBackend.getCards().subscribe(
+      (response) => {
         this.card = response.card;
-        console.log(this.card)
-      }, error =>{
+        this.card;
+      },
+      (error) => {
         console.log(error);
       }
-    )
+    );
+  }
+
+  deleteCard(id: string) {
+    this._connectionBackend.deleteCard(id).subscribe(
+      (response) => {
+        if (response.card) {
+          this.getCards();
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   //ingresoar al array del id especificado y acceder al counter de ese elemento
 
-  addCounter(counter:number, element:any){
-    let add = counter;
-    add += 1;
-    this.cardService.updateCounter(add, element)
-
+  addCounter(card: card) {
+    console.log(card);
+    card.counter = card.counter + 1;
+    console.log(card);
+    this.updateCounter(card);
   }
 
+  substractCounter(card:card){ 
+    card.counter = card.counter - 1;
+    this.updateCounter(card);
+   }
 
-  substractCounter(counter:number, element:any){
-    let substract = counter;
-    substract -= 1;
-    this.cardService.updateCounter(substract, element);
+  //problemas con el cors, no deja llevarse esto por lo que entiendo
+  //revisar
+
+  updateCounter(card:card) {
+    this._connectionBackend.updateCard(card).subscribe(
+      (response) => {
+        console.log(card.counter);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
-  deleteCard(event:Event){
-    this.cardService.deleteCard(event);
-  }
+  // substractCounter(counter:number, element:any){
+  //   let substract = counter;
+  //   substract -= 1;
+  //   this.cardService.updateCounter(substract, element);
+  // }
+
+  // deleteCard(event:Event){
+  //   this.cardService.deleteCard(event);
+  // }
 }

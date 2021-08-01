@@ -6,8 +6,8 @@ import { ListComponent } from './list/list.component';
 import { CardsComponent } from './cards/cards.component';
 import { CardsContainerComponent } from './cards-container/cards-container.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { cardService } from './cards/card.service';
 import { connectionBackend } from './services/connection.service'
+import { Router } from '@angular/router';
 
 
 @NgModule({
@@ -23,7 +23,7 @@ import { connectionBackend } from './services/connection.service'
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [cardService, connectionBackend],
+  providers: [connectionBackend, Router],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
